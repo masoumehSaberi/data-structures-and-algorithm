@@ -1,0 +1,102 @@
+#include <iostream>
+
+
+class Stack
+{
+    int *Array;
+    int capacity ;
+    int top;
+public:
+    Stack(int capacity );
+
+    void push(int x);
+    void pop();
+    void back();
+    void size();
+    void clear();
+    void exit();
+};
+
+Stack::Stack(int capacity)
+{
+    Array = new int[capacity];
+    top = -1;
+}
+
+
+void Stack::push(int x)
+{
+    Array[++top] = x;
+    std::cout<< "ok" <<std::endl;
+}
+
+void Stack::pop()
+{
+    if (top > -1)
+    {
+        std::cout<< Array[top] << std::endl;
+        top--;
+    }
+    else
+        std::cout<< "error" << std::endl;
+}
+
+void Stack::back()
+{
+    if (top > -1)
+        std::cout<< Array[top] << std::endl;
+    else
+        std::cout<< "error" << std::endl;
+}
+
+void Stack::size()
+{
+    int stack_size = top;
+    std::cout<< ++stack_size << std::endl;
+}
+
+void Stack::clear()
+{
+    if (top != 0)
+        delete[] Array;
+    std::cout<< "ok" << std::endl;
+    top = -1;
+}
+
+void Stack::exit()
+{
+    std::cout<< "bye" << std::endl;
+    std::exit(0);
+}
+int main()
+{
+    Stack newStack(20);
+    std::string input;
+    std::getline(std::cin, input);
+    while (1 == 1)
+    {
+        int n = 0;
+        for (int i = 0; i< input.size(); i++)
+            if (input[i] >= '0' && input[i]<= '9')
+            {
+                n *= 10;
+                n += int(input[i]) - 48;
+            }
+        if (input[0] == 'p' && input[1] == 'u')
+            newStack.push(n);
+        else if (input[0] == 'p' && input[1] == 'o')
+            newStack.pop();
+        else if (input[0] == 'b')
+            newStack.back();
+        else if (input[0] == 's')
+            newStack.size();
+        else if (input[0] == 'c')
+            newStack.clear();
+        else if (input[0] == 'e')
+            newStack.exit();
+        else
+            break;
+        std::getline(std::cin, input);
+    }
+    return 0;
+}
