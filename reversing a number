@@ -1,0 +1,17 @@
+#include <iostream>
+
+
+int main()
+{
+    unsigned long long int a, b = 0;
+    std::cout<<"number = ";
+    std::cin >> a;
+    while (a != 0)
+    {
+        b *= 10;
+        b += a%10;
+        a /= 10;
+    }
+    std::cout<<"reversed number = " << b;
+    return 0;
+}
