@@ -1,0 +1,57 @@
+#include <iostream>
+
+using std::cin;
+
+
+bool BinarySearch(int arr[], const int* begin , const int* end, int target)
+{
+    int r = end - arr;
+    int l = begin - arr;
+
+
+    if (r > l) {
+
+        int mid = (r + l) / 2 ;
+        int *mid_pointer ;
+        mid_pointer = &arr[mid];
+
+        if (arr[mid] == target)
+
+            return true;
+
+        if (arr[mid] > target)
+
+            return BinarySearch(arr, begin, mid_pointer , target);
+
+        return BinarySearch(arr, mid_pointer + 1 , end, target);
+
+    }
+
+    return false;
+}
+
+int main()
+{
+    int n, q, t, i, j;
+    int *begin, *end;
+    cin>> n;
+    int arr[n];
+    for(int k = 0; k < n; k++)
+        cin>> arr[k];
+    cin>> q;
+    bool result = false;
+    for (int k = 0; k < q; k++ )
+    {
+        cin>> i;
+        begin = &arr[i];
+        cin>> j;
+        end = &arr[j];
+        cin>> t;
+        result = BinarySearch(arr, begin, end, t);
+        if (result == true)
+            std::cout << "YES" << std::endl;
+        else
+            std::cout << "NO" << std::endl;
+    }
+    return 0;
+}
