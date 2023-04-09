@@ -1,0 +1,122 @@
+#include <iostream>
+#include <string>
+#include<sstream>
+
+
+class Stack
+{
+    int *Array;
+    int capacity ;
+    int top;
+public:
+    Stack(int capacity );
+
+    void push(int x);
+    void pop();
+    void back();
+    void size();
+    void clear();
+    void exit();
+};
+
+Stack::Stack(int capacity)
+{
+    Array = new int[capacity];
+    top = -1;
+}
+
+
+void Stack::push(int x)
+{
+    Array[++top] = x;
+    std::cout<< "ok" <<std::endl;
+}
+
+void Stack::pop()
+{
+    if (top > -1)
+    {
+        std::cout<< Array[top] << std::endl;
+        Array[top] = NULL;
+        top--;
+    }
+    else
+        std::cout<< "error" << std::endl;
+}
+
+void Stack::back()
+{
+    if (top > -1)
+        std::cout<< Array[top] << std::endl;
+    else
+        std::cout<< "error" << std::endl;
+}
+
+void Stack::size()
+{
+    int stack_size = top;
+    std::cout<< ++stack_size << std::endl;
+}
+
+void Stack::clear()
+{
+    if (top != -1)
+        for (int i = 0; i <= top; i++)
+            Array[i] = NULL;
+    std::cout<< "ok" << std::endl;
+    top = -1;
+}
+
+void Stack::exit()
+{
+    std::cout<< "bye" << std::endl;
+    std::exit(0);
+}
+int main()
+{
+    Stack newStack(200);
+    std::string input, word, input1[10] ;
+
+    while (1 == 1)
+    {
+        std::getline(std::cin, input);
+        int i = 0;
+        if  (input != "")
+        {
+            std::stringstream X(input);
+            while (std::getline(X, word,' '))
+                input1[i++] = word;
+        }
+        else
+            input1[0] = '0';
+
+        int n = 0;
+        for (int i = 0; i< input.size(); i++)
+            if (input[i] >= '0' && input[i]<= '9')
+            {
+                n *= 10;
+                n += int(input[i]) - 48;
+            }
+        for (int i = 0; i< input.size(); i++)
+            if (input[i] == '-')
+                n = n * (-1);
+        if (input1[0] == "push" && input1[1] != "" )
+            newStack.push(n);
+        else if (input1[0] == "pop")
+            newStack.pop();
+        else if (input1[0] == "back")
+            newStack.back();
+        else if (input1[0] == "size")
+            newStack.size();
+        else if (input1[0] == "clear")
+            newStack.clear();
+        else if (input1[0] == "exit")
+        {
+            std::cout<< "bye" << std::endl;
+            std::exit(0);
+        }
+        for (int i=0; i<10; i++)
+            input1[i] = "";
+    }
+    return 0;
+}
