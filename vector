@@ -1,0 +1,141 @@
+#include <iostream>
+#include <string>
+#include<sstream>
+
+template<typename T>
+class Vector {
+public:
+    Vector()
+    {
+        resize(2);
+    }
+    void push(const T& element)
+    {
+        if (_size >= _capacity)
+            resize(_capacity * 2);
+
+        elements[_size++] = element;
+        std::cout << "ok"<<std::endl;
+    }
+    void pop()
+    {
+        if (_size >= 0)
+        {
+            _size--;
+            std::cout << elements[_size]<<std::endl;
+            elements[_size] = NULL;
+            _capacity = _size;
+            resize(_capacity);
+        }
+        else
+            std :: cout << "error"<<std::endl;
+    }
+    void at_i (size_t i)
+    {
+        std :: cout << elements[i]<<std::endl;
+    }
+    size_t size() const {return _size;}
+    size_t capacity() const {return _capacity;}
+    void clear()
+    {
+        delete[] elements;
+        std:: cout << "ok"<<std::endl;
+        resize(1);
+    }
+    void exit()
+    {
+        std:: cout << "bye"<<std::endl;
+        std::exit(0);
+    }
+private:
+    int n;
+    T* elements = nullptr;
+    size_t _capacity = 0;
+    size_t _size = 0;
+public:
+    void resize(size_t newCapacity)
+    {
+        T* newMemory = new T[newCapacity];
+        for (size_t i = 0; i <_size; i++)
+            newMemory[i] = elements[i];
+        delete[] elements;
+        elements = newMemory;
+        _capacity = newCapacity;
+        if (_capacity < _size)
+            _size = _capacity;
+    };
+};
+
+
+int main()
+{
+    Vector<int> myvector;
+    std::string input,input2, input1[2], word;
+    std::getline(std::cin, input);
+    std::stringstream X(input);
+    int i = 0;
+    while (std::getline(X, word,' '))
+        input1[i++] = word;
+    while (1 == 1)
+    {
+       if(input1[0] == "exit")
+        {
+            std::cout<< "bye"<<std::endl;
+            break;
+        }
+        else if(input1[0] == "push")
+        {
+            int n = 0;
+            for (int i = 0; i< input.size(); i++)
+                if (input[i] >= '0' && input[i]<= '9')
+                {
+                    n *= 10;
+                    n += int(input[i]) - 48;
+                }
+            myvector.push(n);
+        }
+        else if(input1[0] == "pop")
+            myvector.pop();
+        else if(input1[0] == "at")
+        {
+            int n = 0;
+            for (int i = 0; i< input.size(); i++)
+                if (input[i] >= '0' && input[i]<= '9')
+                {
+                    n *= 10;
+                    n += int(input[i]) - 48;
+                }
+            if (n < myvector.size())
+                myvector.at_i(n);
+            else
+                std::cout<< "error"<<std::endl;
+        }
+        else if(input1[0] == "capacity")
+            std::cout<< myvector.capacity()<<std::endl;
+        else if(input1[0] == "clear")
+            myvector.clear();
+        else if(input1[0] == "size")
+            std::cout<< myvector.size()<<std::endl;
+        else if(input1[0] == "resize")
+        {
+            int n = 0;
+            for (int i = 0; i< input.size(); i++)
+                if (input[i] >= '0' && input[i]<= '9')
+                {
+                    n *= 10;
+                    n += int(input[i]) - 48;
+                }
+            myvector.resize(n);
+            std::cout<< "ok"<<std::endl;
+        }
+        else
+            break;
+        std::getline(std::cin, input);
+        std::stringstream X(input);
+        int i = 0;
+        while (std::getline(X, word,' '))
+            input1[i++] = word;
+
+    }
+    return 0;
+}
